@@ -1,0 +1,520 @@
+import tkinter as tk
+# label & button
+window = tk.Tk()
+window.title("my window")
+window.geometry("200x200")#窗口大小
+
+var = tk.StringVar()
+l = tk.Label(window,textvariable=var,bg="green",font=("Arial",12),width=15,
+            height=2)
+l.pack()
+on_hit = False
+def hit_me():
+    global on_hit
+    if on_hit ==False:
+        on_hit = True
+        var.set("you hit me")
+    else:
+        on_hit = False
+        var.set("")
+b = tk.Button(window,text="hit me",width=15,
+             height=2,command=hit_me)
+b.pack()
+window.mainloop()  # 点击时循环更新数据
+
+# Enter & Text
+window = tk.Tk()
+window.title("my window")
+window.geometry("200x200")#窗口大小
+
+
+e = tk.Entry(window,show="*")# 若要显示 则show=None
+e.pack()
+
+def insert_point():
+    var = e.get()
+    t.insert("insert",var)
+    
+b1 = tk.Button(window,text="insetr point",width=15,
+             height=2,command=insert_point)# 创建可点击窗口+执行功能
+b1.pack()
+
+def insert_end():
+    var = e.get()
+    t.insert("end",var) # end若为1.2 则第一行第二列
+    
+b2 = tk.Button(window,text="insert end",
+            command=insert_end)
+b2.pack()
+t = tk.Text(window,height=2)
+t.pack()
+var_usr_name = tk.StringVar()
+var_usr_name.set('')
+entry_usr_name = tk.Entry(window, textvariable=var_usr_name)
+entry_usr_name.place(x=160, y=150)
+
+window.mainloop()  # 点击时循环更新数据
+print(var_usr_name.get())
+
+# Listbok 列表部件
+window = tk.Tk()
+window.title("my window")
+window.geometry("200x200")#窗口大小
+#e = tk.Entry(window,show="*")# 若要显示 则show=None
+#e.pack()
+var1 = tk.StringVar()
+l = tk.Label(window,bg="yellow",width=4,textvariable=var1)
+l.pack()
+def print_selection():
+    value = lb.get(lb.curselection())
+    var1.set(value)
+    
+b1 = tk.Button(window,text="print selecition",width=15,
+             height=2,command=print_selection)# 创建可点击窗口+执行功能
+b1.pack()
+
+var2 = tk.StringVar()
+var2.set((11,22,33,44))
+lb = tk.Listbox(window,listvariable=var2)
+list_items = [1,2,3,4]
+for item in list_items:
+    lb.insert("end",item)
+lb.insert(1,"first")
+lb.insert(2,"second")
+lb.delete(2)
+lb.pack()
+window.mainloop()  # 点击时循环更新数据
+
+
+# Radiobutton 选择按钮
+window = tk.Tk()
+window.title("my window")
+window.geometry("200x200")#窗口大小
+
+var = tk.StringVar()
+l = tk.Label(window,bg="yellow",width=20,text="empty")
+l.pack()
+
+def print_selection():
+    l.config(text="you have selected "+var.get())
+r1 = tk.Radiobutton(window,text="Option A",
+                   variable=var,value="A",
+                   command = print_selection)# 长在Window上 显示option A 选他时 var会被赋值为A 执行command
+r1.pack()
+
+r2 = tk.Radiobutton(window,text="Option B",
+                   variable=var,value="B",
+                   command = print_selection)
+r2.pack()
+
+r3 = tk.Radiobutton(window,text="Option C",
+                   variable=var,value="C",
+                   command = print_selection)
+r3.pack()
+window.mainloop()  # 点击时循环更新数据
+
+# Scale 尺度
+window = tk.Tk()
+window.title("my window")
+window.geometry("200x200")#窗口大小
+
+l = tk.Label(window,bg="yellow",width=20,text="empty")
+l.pack()
+
+def print_selection(v):
+    l.config(text="you have selected "+v)
+# 名称，范围，横向显示， 长度，显示值， 隔3个单位显示一个值，保留0.01位，执行函数
+s = tk.Scale(window,label="try me",from_=5,to=11,orient=tk.HORIZONTAL,
+             length=200,showvalue=1 ,tickinterval=3,resolution=0.01,command=print_selection)
+s.pack()
+window.mainloop()  # 点击时循环更新数据
+
+# Checkbutton 勾选项
+window = tk.Tk()
+window.title("my window")
+window.geometry("200x200")#窗口大小
+
+l = tk.Label(window,bg="yellow",width=20,text="I have no choice")
+l.pack()
+
+var1 = tk.IntVar()
+var2 = tk.IntVar()
+
+def print_selection():
+    global var1,var2
+    if var1.get()==1 and var2.get()==0:
+        l.config(text="I love python")
+    elif var1.get()==0 and var2.get()==1:
+        l.config(text="I love C++")
+    elif var1.get()==1 and var2.get()==1:
+        l.config(text="I love both")
+    else:
+        l.config(text="I have no choice")
+
+c1 = tk.Checkbutton(window,text="python",variable=var1,onvalue=1,offvalue=0,
+                    command=print_selection)# 选择被赋值1 否则赋值2
+c2 = tk.Checkbutton(window,text="C++",variable=var2,onvalue=1,offvalue=0,
+                    command=print_selection)
+c1.pack()
+c2.pack()
+window.mainloop()  # 点击时循环更新数据
+
+
+# Canvas 画布
+window = tk.Toplevel()
+window.title("my window")
+window.geometry("700x700")#窗口大小
+
+canvas = tk.Canvas(window,bg="blue",height=700,width=700)
+image_flie = tk.PhotoImage(file="2.gif")
+image = canvas.create_image(0,0,anchor="nw",image=image_flie)
+canvas.pack()
+#b = tk.Button(window,text="move",command=moveit).pack()
+window.mainloop()  # 点击时循环更新数据
+
+
+# Menubar 菜单   顶部菜单
+window = tk.Tk()
+window.title("my window")
+window.geometry("500x500")#窗口大小
+
+l = tk.Label(window,bg="yellow",width=100,text="")
+l.pack()
+count = 0
+def do_job():
+    global count
+    l.config(text="do"+str(count))
+    count+=1
+menubar = tk.Menu(window)
+filemenu = tk.Menu(menubar,tearoff=0)
+menubar.add_cascade(label="File",menu=filemenu)
+filemenu.add_command(label="New",command=do_job)
+filemenu.add_command(label="Open",command=do_job)
+filemenu.add_command(label="Save",command=do_job)
+filemenu.add_separator()# 加分割线
+filemenu.add_command(label="Exit",command=window.quit)# 退出窗口
+
+editmenu = tk.Menu(menubar,tearoff=0)
+menubar.add_cascade(label="Edit",menu=editmenu)
+editmenu.add_command(label="Cut",command=do_job)
+editmenu.add_command(label="Copy",command=do_job)
+editmenu.add_command(label="Paste",command=do_job)
+
+submenu = tk.Menu(filemenu)
+filemenu.add_cascade(label="Import",menu=submenu,underline=0)
+submenu.add_command(label="Submenu1",command=do_job)
+submenu.add_command(label="Submenu2",command=do_job)
+
+window.config(menu=menubar)
+window.mainloop()  # 点击时循环更新数据
+
+# Frame 框架
+window = tk.Tk()
+window.title("my window")
+window.geometry("500x500")#窗口大小
+tk.Label(window,text="on the window").pack()
+
+frm = tk.Frame(window)
+frm.pack()
+frm_l = tk.Frame(frm)
+frm_r = tk.Frame(frm)
+frm_l.pack(side="left")
+frm_r.pack(side="right")
+
+tk.Label(frm_l,text="on the frm_l1").pack()
+tk.Label(frm_l,text="on the frm_l2").pack()
+tk.Label(frm_l,text="on the frm_l3").pack()
+
+tk.Label(frm_r,text="on the frm_r1").pack()
+tk.Label(frm_r,text="on the frm_r2").pack()
+
+window.mainloop()  # 点击时循环更新数据
+
+# messagebox 框架   弹窗
+import tkinter.messagebox 
+window = tk.Tk()
+window.title("my window")
+window.geometry("500x500")#窗口大小
+
+def hit_me():
+    tk.messagebox.showinfo(title="Hi",message="hahaha")
+    #tk.messagebox.showwarning(title="Hi",message="nonono")
+    #tk.messagebox.showerror(title="Hi",message="NO!!!!never")
+    #print(tk.messagebox.askquestion(title="Hi",message="请选择")) # return yes or no 字符串
+    #print(tk.messagebox.askyesno(title="Hi",message="请选择")) # return true or false
+    #print(tk.messagebox.askokcancel(title="Hi",message="请选择"))# return true or false
+
+tk.Button(window,text="hit me",command=hit_me).pack()
+
+window.mainloop()  # 点击时循环更新数据
+
+
+# pack grid place 放置位置
+window = tk.Tk()
+window.title("my window")
+window.geometry("300x300")#窗口大小
+
+'''上下左右
+tk.Label(window,text=1).pack(side='top')
+tk.Label(window,text=1).pack(side='bottom')
+tk.Label(window,text=1).pack(side='left')
+tk.Label(window,text=1).pack(side='right')
+'''
+'''格子形式
+for i in range(4):
+    for j in range(3):
+        tk.Label(window,text=1).grid(column=j,row=i,padx=10,pady=10) # X方向，Y方向扩展10个单位
+
+'''
+# 按位置放置
+tk.Label(window,text=1).place(x=10,y=100,anchor="nw")
+window.mainloop()  # 点击时循环更新数据
+
+
+### ge3
+import tkinter as tk
+from tkinter import messagebox  # import this to fix messagebox error
+import pickle
+
+window = tk.Tk()
+window.title('Welcome to Mofan Python')
+window.geometry('450x300')
+
+# welcome image
+canvas = tk.Canvas(window, height=200, width=500)
+image_file = tk.PhotoImage(file='1.gif')
+image = canvas.create_image(0,0, anchor='nw', image=image_file)
+canvas.pack(side='top')
+
+# user information
+tk.Label(window, text='User name: ').place(x=50, y= 150)
+tk.Label(window, text='Password: ').place(x=50, y= 190)
+
+var_usr_name = tk.StringVar()
+var_usr_name.set('example@python.com')
+entry_usr_name = tk.Entry(window, textvariable=var_usr_name)
+entry_usr_name.place(x=160, y=150)
+var_usr_pwd = tk.StringVar()
+entry_usr_pwd = tk.Entry(window, textvariable=var_usr_pwd, show='*')
+entry_usr_pwd.place(x=160, y=190)
+
+def usr_login():
+    usr_name = var_usr_name.get()
+    usr_pwd = var_usr_pwd.get()
+    try:
+        with open('usrs_info.pickle', 'rb') as usr_file:
+            usrs_info = pickle.load(usr_file)
+    except FileNotFoundError:
+        with open('usrs_info.pickle', 'wb') as usr_file:
+            usrs_info = {'admin': 'admin'}
+            pickle.dump(usrs_info, usr_file)
+    if usr_name in usrs_info:
+        if usr_pwd == usrs_info[usr_name]:
+            tk.messagebox.showinfo(title='Welcome', message='How are you? ' + usr_name)
+        else:
+            tk.messagebox.showerror(message='Error, your password is wrong, try again.')
+    else:
+        is_sign_up = tk.messagebox.askyesno('Welcome',
+                               'You have not signed up yet. Sign up today?')
+        if is_sign_up:
+            usr_sign_up()
+
+def usr_sign_up():
+    def sign_to_Mofan_Python():
+        np = new_pwd.get()
+        npf = new_pwd_confirm.get()
+        nn = new_name.get()
+        with open('usrs_info.pickle', 'rb') as usr_file:
+            exist_usr_info = pickle.load(usr_file)
+        if np != npf:
+            tk.messagebox.showerror('Error', 'Password and confirm password must be the same!')
+        elif nn in exist_usr_info:
+            tk.messagebox.showerror('Error', 'The user has already signed up!')
+        else:
+            exist_usr_info[nn] = np
+            with open('usrs_info.pickle', 'wb') as usr_file:
+                pickle.dump(exist_usr_info, usr_file)
+            tk.messagebox.showinfo('Welcome', 'You have successfully signed up!')
+            window_sign_up.destroy()
+    window_sign_up = tk.Toplevel(window)
+    window_sign_up.geometry('350x200')
+    window_sign_up.title('Sign up window')
+
+    new_name = tk.StringVar()
+    new_name.set('example@python.com')
+    tk.Label(window_sign_up, text='User name: ').place(x=10, y= 10)
+    entry_new_name = tk.Entry(window_sign_up, textvariable=new_name)
+    entry_new_name.place(x=150, y=10)
+
+    new_pwd = tk.StringVar()
+    tk.Label(window_sign_up, text='Password: ').place(x=10, y=50)
+    entry_usr_pwd = tk.Entry(window_sign_up, textvariable=new_pwd, show='*')
+    entry_usr_pwd.place(x=150, y=50)
+
+    new_pwd_confirm = tk.StringVar()
+    tk.Label(window_sign_up, text='Confirm password: ').place(x=10, y= 90)
+    entry_usr_pwd_confirm = tk.Entry(window_sign_up, textvariable=new_pwd_confirm, show='*')
+    entry_usr_pwd_confirm.place(x=150, y=90)
+
+    btn_comfirm_sign_up = tk.Button(window_sign_up, text='Sign up', command=sign_to_Mofan_Python)
+    btn_comfirm_sign_up.place(x=150, y=130)
+
+# login and sign up button
+btn_login = tk.Button(window, text='Login', command=usr_login)
+btn_login.place(x=170, y=230)
+btn_sign_up = tk.Button(window, text='Sign up', command=usr_sign_up)
+btn_sign_up.place(x=270, y=230)
+
+window.mainloop()
+
+
+## 我要开发自己的小程序啦
+from PIL import Image
+from PIL import ImageSequence
+import os, base64
+ 
+with open("1.gif","rb") as f:
+    # b64encode是编码，b64decode是解码
+    base64_data = base64.b64encode(f.read())
+    #print(base64_data)#输出生成的base64码
+ #img_str = 'abcdefgh12345oK='#比如生成后的码就这么放，替换下面的base64_data即可
+img_data = base64.b64decode(base64_data)
+print(img_data)
+import os
+import re
+import requests
+import tkinter as tk
+from tkinter import *
+from urllib import error
+from tkinter import messagebox
+from bs4 import BeautifulSoup
+#                                                                                 绘制界面及显示label
+window = tk.Tk()
+window.title("在这里你可以批量下载你想要的图片")
+window.geometry("500x500")#窗口大小
+canvas = tk.Canvas(window,bg="blue",height=500,width=500)
+image_flie = tk.PhotoImage(file="1.gif")
+image = canvas.create_image(0,0,anchor="nw",image=image_flie)
+canvas.pack()
+tk.Label(window,text="请输入图片名称(人名or地名)",font=("华文行楷"),fg="red",bg="white").place(x=22,y=140)
+tk.Label(window,text="存储图片的文件夹(输入名称)",font=("华文行楷"),fg="black",bg="white").place(x=8,y=180)
+#                                                                                     获取用户输入数据
+pic_name = tk.StringVar()
+tk.Entry(window,textvariable=pic_name).place(x=280,y=143)
+fo_name = tk.StringVar()
+tk.Entry(window,textvariable=fo_name).place(x=280,y=185)
+#                                                                                   爬虫主体
+word=""
+s = 0
+num = 0
+url=''
+List = []
+
+"-------------------------------------------------------------------------------------------------------------"
+def Find():
+    global List,url,word,s
+    if pic_name.get()=="":
+        tk.messagebox.showerror(title="error",message="所要查找的内容为空，请重新输入")
+        return
+    if fo_name.get()=="":
+        tk.messagebox.showerror(title="error",message="输入的文件夹为空，请重新输入")
+        return
+    tk.Label(window,text="请稍等，正在检测.....",font=("华文行楷",20),fg="black").place(x=150,y=230)
+    y = os.path.exists(fo_name.get())
+    if y == 1:
+        tk.messagebox.showwarning(title="warning",message="该文件夹已存在，")
+    else:
+        tk.messagebox.showinfo(title="running",message="正在检测照片数量，请稍后")
+        os.mkdir(fo_name.get()) # 创建文件夹
+    word = pic_name.get()
+    url = 'http://image.baidu.com/search/flip?tn=baiduimage&ie=utf-8&word=' + word + '&pn='
+    t = 0
+    i = 1
+    s = 0
+    while t < 1000:
+        Url = url + str(t)
+        try:
+            Result = requests.get(Url, timeout=7)
+        except BaseException:
+            t = t + 60
+            continue
+        else:
+            result = Result.text
+            pic_url = re.findall('"objURL":"(.*?)",', result, re.S)  # 先利用正则表达式找到图片url
+            s += len(pic_url)
+            if len(pic_url) == 0:
+                break
+            else:
+                List.append(pic_url)
+                t = t + 60
+    usr_sign_up()
+    return
+'---------------------------------------------------------------------------------------'
+def usr_sign_up():
+    global word,s
+    window_sign_up = tk.Toplevel(window)
+    window_sign_up.geometry('350x200')
+    window_sign_up.title('Sign up picture') 
+    tk.Label(window,text="            检测成功           ",font=("华文行楷",20),fg="black").place(x=150,y=230)
+    tk.Label(window_sign_up, text='请输入下载数量',font=("华文行楷"),fg="black").place(x=10, y= 80)
+    pic_num = tk.IntVar()
+    tk.Label(window_sign_up,text="相关{}类图片找到{}张".format(word,s),font=("黑体"),fg="black").place(x=40,y=15)
+    entry_new_name = tk.Entry(window_sign_up, textvariable=pic_num)
+    entry_new_name.place(x=170, y=80)
+    def downloadPicture():
+        window_sign_up.destroy()
+        global window
+        tk.messagebox.showinfo(title="waiting",message="正在下载，请稍等。。。。")
+        global num,url
+        max_num = pic_num.get()
+        t = 0
+        tmp = url
+
+        tk.Label(window,text="下载进度",font=("华文行楷"),bg="white").place(x=0,y=1)
+        window.update()
+        frame = Frame(window).place(x=30,y=0)#使用时将框架根据情况选择新的位置
+        canvas1 = Canvas(frame,width = 120,height = 30,bg = "white")
+        canvas1.place(x = 0,y = 30)
+        #进度条以及完成程度
+        out_rec = canvas1.create_rectangle(5,5,105,25,outline = "blue",width = 1)
+        fill_rec = canvas1.create_rectangle(5,5,5,25,outline = "",width = 0,fill = "blue")
+
+        while t < pic_num.get():
+            try:
+                url = tmp + str(t)
+                result = requests.get(url, timeout=10)
+            except error.HTTPError as e:
+                tk.messagebox.showerror(title="error",message="网络错误，请调整网络后重试！")
+                t = t+60
+            pic_url = re.findall('"objURL":"(.*?)",', result.text, re.S)  # 先利用正则表达式找到图片url
+            for each in pic_url:
+                try:
+                    if each is not None:
+                        pic = requests.get(each, timeout=7)
+                    else:
+                        continue
+                except BaseException:
+                    continue
+                else:
+                    string = fo_name.get() + r'\\' + pic_name.get() + '_' + str(num) + '.jpg'
+                    fp = open(string, 'wb')
+                    fp.write(pic.content)
+                    fp.close()
+                    num += 1
+
+                    canvas1.coords(fill_rec, (5, 5, 6 + (num/max_num)*100, 25))
+                    window.update()
+                    tk.Label(window,text=str(round((num)/max_num*100,2)) + '%',font=("华文行楷"),bg="white").place(x=140,y=35)
+
+                if num >= pic_num.get():
+                    tk.messagebox.showinfo('Welcome', 'You have successfully signed up!')
+
+                    window.destroy()
+                    return
+            t = t + 60
+
+    btn_comfirm_sign_up = tk.Button(window_sign_up, text='Sign up', command=downloadPicture)
+    btn_comfirm_sign_up.place(x=150, y=130)
+'---------------------------------------------------------------------------------------'
+tk.Button(window,text="检测相关图片数量",command=Find,font=("黑体",20),fg="green",bg="white").place(x=180,y=360)
+window.mainloop()  # 点击时循环更新数据
